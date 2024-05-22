@@ -5,7 +5,7 @@ using UnityEngine;
 public class TRexScript : MonoBehaviour
 {
     [SerializeField]
-    AudioSource audioSourceStep, audioSourceRoar;
+    AudioSource audioSourceStep, audioSourceRoar, audioSourceRoar2;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +17,10 @@ public class TRexScript : MonoBehaviour
     public void PlayRoar(){
         audioSourceRoar.Stop();
         audioSourceRoar.Play();
+    }
+    public void PlayRoar2(){
+        audioSourceRoar2.Stop();
+        audioSourceRoar2.Play();
     }
 
     // Update is called once per frame

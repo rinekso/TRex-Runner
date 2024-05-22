@@ -45,7 +45,7 @@ public class GameController : MonoBehaviour
     public bool IsStart{
         get { return _isStart;}
     }
-    float _iterator = 1;
+    float _iterator = 2;
     float _spawnTimer{
         get { return Random.RandomRange(2,4); }
     }
@@ -158,6 +158,12 @@ public class GameController : MonoBehaviour
             _TRexAnimator.SetBool("Jump",false);
         }
     }
+    GameObject currentObstacle = null;
+    public GameObject CurrentObstacle{
+        set{
+            currentObstacle = value;
+        }
+    }
      // Update is called once per frame
     void Update()
     {
@@ -172,9 +178,17 @@ public class GameController : MonoBehaviour
             _scoreText.text = "Score "+(Round(_timer,1)*10).ToString("00000");
 
             // Spawn Obstacles
-            if(_timer > _iterator){
-                _iterator += _spawnTimer;
-                Instantiate(_prefabsObstacles[Random.Range(0,_prefabsObstacles.Length)],_obstacleSpawn);
+            if(currentObstacle == null && _timer > _iterator){
+                // _iterator += _spawnTimer;
+                currentObstacle = Instantiate(_prefabsObstacles[Random.Range(0,_prefabsObstacles.Length)],_obstacleSpawn);
+                float standarSpeed = .5f;
+                if(_currentScore/100 > 12){
+                    currentObstacle.GetComponent<ObstacleScript>()._speed = standarSpeed*3f;
+                }else if(_currentScore/100 > 8){
+                    currentObstacle.GetComponent<ObstacleScript>()._speed = standarSpeed*2f;
+                }else if(_currentScore/100 > 4){
+                    currentObstacle.GetComponent<ObstacleScript>()._speed = standarSpeed*1.5f;
+                }
             }
         }else{
             _controller.transform.localPosition = Vector3.zero;

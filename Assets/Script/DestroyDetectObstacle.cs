@@ -7,6 +7,7 @@ public class DestroyDetectObstacle : MonoBehaviour
 {
     void OnTriggerEnter(Collider other){
         if(other.transform.parent.GetComponent<ObstacleScript>()){
+            GameController.Instance.CurrentObstacle = null;
             Destroy(other.transform.parent.gameObject);
         }
     }
